@@ -50,7 +50,7 @@ public class Driver {
 
  //System.setProperty("webdriver.http.factory", "jdk-http-client");
 //                    WebDriverManager.chromedriver().setup();
-//                    driver = new ChromeDriver();
+//                     driver = new ChromeDriver();
 
 
 // WebDriverManager.chromedriver().setup();
