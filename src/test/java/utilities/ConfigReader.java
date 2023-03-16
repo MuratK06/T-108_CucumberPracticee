@@ -6,27 +6,25 @@ import java.util.Properties;
 
 public class ConfigReader {
 
+
     static Properties properties;
 
     static {
-
-        String dosyaYolu= "configuration.properties";
+        String dosyaYolu="configration.properties";
         try {
-
-            FileInputStream fis= new FileInputStream(dosyaYolu);
-            properties= new Properties();
+            FileInputStream fis=new FileInputStream(dosyaYolu);
+            properties=new Properties();
             properties.load(fis);
 
-
         } catch (IOException e) {
-            System.out.println("properties dosyasi okunamadi");
-
+            throw new RuntimeException(e);
         }
 
     }
 
-    public static String getProperty(String key){
 
+    public static String getProperty(String key){
         return properties.getProperty(key);
     }
+
 }

@@ -11,50 +11,49 @@ import java.time.Duration;
 
 public class Driver {
 
+    private Driver(){
+//Singleton Pattern consepti ile bu classtan obje oluşturulmasını engellemek için
+// bu constructor callu oluşturduk.
+    }
+
     static WebDriver driver;
-    public static WebDriver getDriver() {
-        if (driver == null) {
-            switch (ConfigReader.getProperty("browser")) {
+    public static WebDriver getDriver(){
+
+
+        if(driver==null) {// method ilk cagrildiginda driver degeri atanmamis oldugundan deger ata
+            // sonraki calistirmalarda degeri atanmis oldugundan 18.satir calismayacak
+            String browser=ConfigReader.getProperty("browser");
+            switch (browser){
                 case "chrome":
-                    ChromeOptions ops = new ChromeOptions();
-                    ops.addArguments("--remote-allow-origins=*");
                     WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver(ops);
-                    break;
-                case "safari":
-                    WebDriverManager.safaridriver().setup();
-                    driver = new SafariDriver();
+                    ChromeOptions options=new ChromeOptions();
+                    options.addArguments("--remote-allow-origins=*");
+                    driver = new ChromeDriver(options);
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver();
                     break;
+                case "safari":
+                    WebDriverManager.safaridriver().setup();
+                    driver = new SafariDriver();
+                    break;
                 default:
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver();
-
             }
-            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         }
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().window().maximize();
         return driver;
     }
-    public static void closeDriver() {
-        if (driver != null) { // driver'a deger atanmissa
+
+    public static void closeDriver(){
+        if (driver!=null){
             driver.close();
-            driver = null;
+            driver=null;
         }
+
     }
 }
-
-
- //System.setProperty("webdriver.http.factory", "jdk-http-client");
-//                    WebDriverManager.chromedriver().setup();
-//                     driver = new ChromeDriver();
-
-
-// WebDriverManager.chromedriver().setup();
-//                    ChromeOptions options=new ChromeOptions();
-//                    options.addArguments("--remote-allow-origins=*");
-//                    driver = new ChromeDriver(options);
-//                    break;
