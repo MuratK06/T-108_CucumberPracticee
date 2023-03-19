@@ -11,7 +11,7 @@ public class Us001Page {
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
-     @FindBy(xpath = "//*[text()='Reject all']")
+     @FindBy(xpath = "//button[@id='L2AGLb']")
     public WebElement cokkies;
 
     @FindBy(xpath = "//input[@class='gLFyf']")
